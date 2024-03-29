@@ -111,9 +111,9 @@ void field::reload_field_info() {
 	for(const auto& ch : core.current_chain) {
 		effect* peffect = ch.triggering_effect;
 		pduel->write_buffer32(peffect->get_handler()->data.code);
-		pduel->write_buffer40(peffect->get_handler()->new_get_info_location());
+		pduel->write_buffer32(peffect->get_handler()->get_info_location());
 		pduel->write_buffer8(ch.triggering_controler);
-		pduel->write_buffer16((uint16)ch.triggering_location);
+		pduel->write_buffer8((uint8)ch.triggering_location);
 		pduel->write_buffer8(ch.triggering_sequence);
 		pduel->write_buffer32(peffect->description);
 	}
@@ -956,7 +956,7 @@ int32 field::check_extra_link(int32 playerid, card* pcard, int32 sequence) {
 	if(player[playerid].list_mzone[sequence])
 		return FALSE;
 	uint8 cur_controler = pcard->current.controler;
-	uint8 cur_location = pcard->current.location;
+	uint16 cur_location = pcard->current.location;
 	uint8 cur_sequence = pcard->current.sequence;
 	player[playerid].list_mzone[sequence] = pcard;
 	pcard->current.controler = playerid;
